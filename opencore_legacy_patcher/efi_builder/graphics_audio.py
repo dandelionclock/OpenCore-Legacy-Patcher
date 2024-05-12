@@ -139,7 +139,7 @@ class BuildGraphicsAudio:
 
         # MacBookPro6,2 Nvidia Fix
         if self.model  == "MacBookPro6,2":
-        logging.info("- Adding AppleGraphicsPowerManagement Override")
+            logging.info("- Adding AppleGraphicsPowerManagement Override")
             agpm_map_path = Path(self.constants.plist_folder_path) / Path("AppleGraphicsPowerManagement/Info.plist")
             Path(self.constants.agpm_kext_folder).mkdir()
             Path(self.constants.agpm_contents_folder).mkdir()
