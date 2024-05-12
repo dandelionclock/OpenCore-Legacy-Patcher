@@ -137,6 +137,15 @@ class BuildGraphicsAudio:
                             if "nvda_drv" not in self.config["NVRAM"]["Delete"]["7C436110-AB2A-4BBB-A880-FE41995C9F82"]:
                                 self.config["NVRAM"]["Delete"]["7C436110-AB2A-4BBB-A880-FE41995C9F82"] += ["nvda_drv"]
 
+        # MacBookPro6,2 Nvidia Fix
+        if self.model  == "MacBookPro6,2":
+        logging.info("- Adding AppleGraphicsPowerManagement Override")
+            agpm_map_path = Path(self.constants.plist_folder_path) / Path("AppleGraphicsPowerManagement/Info.plist")
+            Path(self.constants.agpm_kext_folder).mkdir()
+            Path(self.constants.agpm_contents_folder).mkdir()
+            shutil.copy(agpm_map_path, self.constants.agpm_contents_folder)
+            support.BuildSupport(self.model, self.constants, self.config).get_kext_by_bundle_path("AGPM-Override.kext")["Enabled"] = True
+
     def _backlight_path_detection(self) -> None:
         """
         iMac MXM dGPU Backlight DevicePath Detection
